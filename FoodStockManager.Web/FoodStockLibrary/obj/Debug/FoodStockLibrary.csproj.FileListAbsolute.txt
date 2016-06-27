@@ -1,0 +1,10 @@
+C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockLibrary\obj\Debug\FoodStockLibrary.csprojResolveAssemblyReference.cache
+C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockLibrary\bin\Debug\FoodStockLibrary.dll.config
+C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockLibrary\bin\Debug\FoodStockLibrary.dll
+C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockLibrary\bin\Debug\FoodStockLibrary.pdb
+C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockLibrary\bin\Debug\EntityFramework.dll
+C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockLibrary\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockLibrary\bin\Debug\EntityFramework.xml
+C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockLibrary\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockLibrary\obj\Debug\FoodStockLibrary.dll
+C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockLibrary\obj\Debug\FoodStockLibrary.pdb

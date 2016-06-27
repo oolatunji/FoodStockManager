@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FoodStockDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="FoodStockDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Branches" EntityType="FoodStockDBModel.Branch" />
+    <EntitySet Name="Functions" EntityType="FoodStockDBModel.Function" />
+    <EntitySet Name="Orders" EntityType="FoodStockDBModel.Order" />
+    <EntitySet Name="OrderItems" EntityType="FoodStockDBModel.OrderItem" />
+    <EntitySet Name="Products" EntityType="FoodStockDBModel.Product" />
+    <EntitySet Name="ProductCategories" EntityType="FoodStockDBModel.ProductCategory" />
+    <EntitySet Name="RoleFunctions" EntityType="FoodStockDBModel.RoleFunction" />
+    <EntitySet Name="Roles" EntityType="FoodStockDBModel.Role" />
+    <EntitySet Name="Users" EntityType="FoodStockDBModel.User" />
+    <AssociationSet Name="FK_Order_Branch" Association="FoodStockDBModel.FK_Order_Branch">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Branch" Association="FoodStockDBModel.FK_Users_Branch">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoleFunctions_RoleFunctions" Association="FoodStockDBModel.FK_RoleFunctions_RoleFunctions">
+      <End Role="Function" EntitySet="Functions" />
+      <End Role="RoleFunction" EntitySet="RoleFunctions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_ApprovedUser" Association="FoodStockDBModel.FK_Order_ApprovedUser">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_CancelledUser" Association="FoodStockDBModel.FK_Order_CancelledUser">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_DeclinedUser" Association="FoodStockDBModel.FK_Order_DeclinedUser">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_OrderedUser" Association="FoodStockDBModel.FK_Order_OrderedUser">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItem_Order" Association="FoodStockDBModel.FK_OrderItem_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItem_Product" Association="FoodStockDBModel.FK_OrderItem_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_ProductCategory" Association="FoodStockDBModel.FK_Product_ProductCategory">
+      <End Role="ProductCategory" EntitySet="ProductCategories" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_ProductCreatedUser" Association="FoodStockDBModel.FK_Product_ProductCreatedUser">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_ProductLastUpdatedUser" Association="FoodStockDBModel.FK_Product_ProductLastUpdatedUser">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductCategory_CreatedUser" Association="FoodStockDBModel.FK_ProductCategory_CreatedUser">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ProductCategory" EntitySet="ProductCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductCategory_LastUpdatedUser" Association="FoodStockDBModel.FK_ProductCategory_LastUpdatedUser">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ProductCategory" EntitySet="ProductCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoleFunctions_Roles" Association="FoodStockDBModel.FK_RoleFunctions_Roles">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="RoleFunction" EntitySet="RoleFunctions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Roles" Association="FoodStockDBModel.FK_Users_Roles">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Branch">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Orders" Relationship="FoodStockDBModel.FK_Order_Branch" FromRole="Branch" ToRole="Order" />
+    <NavigationProperty Name="Users" Relationship="FoodStockDBModel.FK_Users_Branch" FromRole="Branch" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Function">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PageLink" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="RoleFunctions" Relationship="FoodStockDBModel.FK_RoleFunctions_RoleFunctions" FromRole="Function" ToRole="RoleFunction" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TotalQuantityRequested" Type="Int64" />
+    <Property Name="TotalQuantityApproved" Type="Int64" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OrderBranch" Type="Int64" />
+    <Property Name="OrderedBy" Type="Int64" />
+    <Property Name="OrderdOn" Type="DateTime" Precision="3" />
+    <Property Name="ApprovedBy" Type="Int64" />
+    <Property Name="ApprovedOn" Type="DateTime" Precision="3" />
+    <Property Name="CancelledBy" Type="Int64" />
+    <Property Name="CancelledOn" Type="DateTime" Precision="3" />
+    <Property Name="DeclinedBy" Type="Int64" />
+    <Property Name="DeclinedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Branch" Relationship="FoodStockDBModel.FK_Order_Branch" FromRole="Order" ToRole="Branch" />
+    <NavigationProperty Name="User" Relationship="FoodStockDBModel.FK_Order_ApprovedUser" FromRole="Order" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="FoodStockDBModel.FK_Order_CancelledUser" FromRole="Order" ToRole="User" />
+    <NavigationProperty Name="User2" Relationship="FoodStockDBModel.FK_Order_DeclinedUser" FromRole="Order" ToRole="User" />
+    <NavigationProperty Name="User3" Relationship="FoodStockDBModel.FK_Order_OrderedUser" FromRole="Order" ToRole="User" />
+    <NavigationProperty Name="OrderItems" Relationship="FoodStockDBModel.FK_OrderItem_Order" FromRole="Order" ToRole="OrderItem" />
+  </EntityType>
+  <EntityType Name="OrderItem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int64" />
+    <Property Name="ProductId" Type="Int64" />
+    <Property Name="QuantityRequested" Type="Int64" />
+    <Property Name="QuantityApproved" Type="Int64" />
+    <NavigationProperty Name="Order" Relationship="FoodStockDBModel.FK_OrderItem_Order" FromRole="OrderItem" ToRole="Order" />
+    <NavigationProperty Name="Product" Relationship="FoodStockDBModel.FK_OrderItem_Product" FromRole="OrderItem" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryID" Type="Int64" />
+    <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Level" Type="Int64" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="LastUpdatedBy" Type="Int64" />
+    <Property Name="LastUpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="OrderItems" Relationship="FoodStockDBModel.FK_OrderItem_Product" FromRole="Product" ToRole="OrderItem" />
+    <NavigationProperty Name="ProductCategory" Relationship="FoodStockDBModel.FK_Product_ProductCategory" FromRole="Product" ToRole="ProductCategory" />
+    <NavigationProperty Name="User" Relationship="FoodStockDBModel.FK_Product_ProductCreatedUser" FromRole="Product" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="FoodStockDBModel.FK_Product_ProductLastUpdatedUser" FromRole="Product" ToRole="User" />
+  </EntityType>
+  <EntityType Name="ProductCategory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="LastUpdatedBy" Type="Int64" />
+    <Property Name="LastUpdatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="FoodStockDBModel.FK_Product_ProductCategory" FromRole="ProductCategory" ToRole="Product" />
+    <NavigationProperty Name="User" Relationship="FoodStockDBModel.FK_ProductCategory_CreatedUser" FromRole="ProductCategory" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="FoodStockDBModel.FK_ProductCategory_LastUpdatedUser" FromRole="ProductCategory" ToRole="User" />
+  </EntityType>
+  <EntityType Name="RoleFunction">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int64" Nullable="false" />
+    <Property Name="FunctionID" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Function" Relationship="FoodStockDBModel.FK_RoleFunctions_RoleFunctions" FromRole="RoleFunction" ToRole="Function" />
+    <NavigationProperty Name="Role" Relationship="FoodStockDBModel.FK_RoleFunctions_Roles" FromRole="RoleFunction" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="RoleFunctions" Relationship="FoodStockDBModel.FK_RoleFunctions_Roles" FromRole="Role" ToRole="RoleFunction" />
+    <NavigationProperty Name="Users" Relationship="FoodStockDBModel.FK_Users_Roles" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Lastname" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Othernames" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="UserRole" Type="Int64" />
+    <Property Name="HashedPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="UserBranch" Type="Int64" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="FirstTime" Type="Boolean" />
+    <NavigationProperty Name="Branch" Relationship="FoodStockDBModel.FK_Users_Branch" FromRole="User" ToRole="Branch" />
+    <NavigationProperty Name="Orders" Relationship="FoodStockDBModel.FK_Order_ApprovedUser" FromRole="User" ToRole="Order" />
+    <NavigationProperty Name="Orders1" Relationship="FoodStockDBModel.FK_Order_CancelledUser" FromRole="User" ToRole="Order" />
+    <NavigationProperty Name="Orders2" Relationship="FoodStockDBModel.FK_Order_DeclinedUser" FromRole="User" ToRole="Order" />
+    <NavigationProperty Name="Orders3" Relationship="FoodStockDBModel.FK_Order_OrderedUser" FromRole="User" ToRole="Order" />
+    <NavigationProperty Name="Products" Relationship="FoodStockDBModel.FK_Product_ProductCreatedUser" FromRole="User" ToRole="Product" />
+    <NavigationProperty Name="Products1" Relationship="FoodStockDBModel.FK_Product_ProductLastUpdatedUser" FromRole="User" ToRole="Product" />
+    <NavigationProperty Name="ProductCategories" Relationship="FoodStockDBModel.FK_ProductCategory_CreatedUser" FromRole="User" ToRole="ProductCategory" />
+    <NavigationProperty Name="ProductCategories1" Relationship="FoodStockDBModel.FK_ProductCategory_LastUpdatedUser" FromRole="User" ToRole="ProductCategory" />
+    <NavigationProperty Name="Role" Relationship="FoodStockDBModel.FK_Users_Roles" FromRole="User" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_Order_Branch">
+    <End Type="FoodStockDBModel.Branch" Role="Branch" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OrderBranch" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Branch">
+    <End Type="FoodStockDBModel.Branch" Role="Branch" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="UserBranch" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoleFunctions_RoleFunctions">
+    <End Type="FoodStockDBModel.Function" Role="Function" Multiplicity="1" />
+    <End Type="FoodStockDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Function">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RoleFunction">
+        <PropertyRef Name="FunctionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_ApprovedUser">
+    <End Type="FoodStockDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="ApprovedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_CancelledUser">
+    <End Type="FoodStockDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CancelledBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_DeclinedUser">
+    <End Type="FoodStockDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="DeclinedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_OrderedUser">
+    <End Type="FoodStockDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OrderedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItem_Order">
+    <End Type="FoodStockDBModel.Order" Role="Order" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItem_Product">
+    <End Type="FoodStockDBModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_ProductCategory">
+    <End Type="FoodStockDBModel.ProductCategory" Role="ProductCategory" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductCategory">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_ProductCreatedUser">
+    <End Type="FoodStockDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_ProductLastUpdatedUser">
+    <End Type="FoodStockDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="LastUpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductCategory_CreatedUser">
+    <End Type="FoodStockDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.ProductCategory" Role="ProductCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductCategory">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductCategory_LastUpdatedUser">
+    <End Type="FoodStockDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.ProductCategory" Role="ProductCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductCategory">
+        <PropertyRef Name="LastUpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoleFunctions_Roles">
+    <End Type="FoodStockDBModel.Role" Role="Role" Multiplicity="1" />
+    <End Type="FoodStockDBModel.RoleFunction" Role="RoleFunction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RoleFunction">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Roles">
+    <End Type="FoodStockDBModel.Role" Role="Role" Multiplicity="0..1" />
+    <End Type="FoodStockDBModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="UserRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

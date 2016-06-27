@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f0a3e38f5d03461eb1d30f18c6f43631" Name="Diagram1">
+        <EntityTypeShape EntityType="FoodStockDBModel.Branch" Width="1.5" PointX="3.75" PointY="5.25" />
+        <EntityTypeShape EntityType="FoodStockDBModel.Function" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="FoodStockDBModel.Order" Width="1.5" PointX="8.25" PointY="7" />
+        <EntityTypeShape EntityType="FoodStockDBModel.OrderItem" Width="1.5" PointX="12.75" PointY="10" />
+        <EntityTypeShape EntityType="FoodStockDBModel.Product" Width="1.5" PointX="10.5" PointY="12" />
+        <EntityTypeShape EntityType="FoodStockDBModel.ProductCategory" Width="1.5" PointX="8.25" PointY="17.75" />
+        <EntityTypeShape EntityType="FoodStockDBModel.RoleFunction" Width="1.5" PointX="3" PointY="8.375" />
+        <EntityTypeShape EntityType="FoodStockDBModel.Role" Width="1.5" PointX="0.75" PointY="8.375" />
+        <EntityTypeShape EntityType="FoodStockDBModel.User" Width="1.5" PointX="6" PointY="6.75" />
+        <AssociationConnector Association="FoodStockDBModel.FK_Order_Branch" />
+        <AssociationConnector Association="FoodStockDBModel.FK_Users_Branch" />
+        <AssociationConnector Association="FoodStockDBModel.FK_RoleFunctions_RoleFunctions" />
+        <AssociationConnector Association="FoodStockDBModel.FK_Order_ApprovedUser" />
+        <AssociationConnector Association="FoodStockDBModel.FK_Order_CancelledUser" />
+        <AssociationConnector Association="FoodStockDBModel.FK_Order_DeclinedUser" />
+        <AssociationConnector Association="FoodStockDBModel.FK_Order_OrderedUser" />
+        <AssociationConnector Association="FoodStockDBModel.FK_OrderItem_Order" />
+        <AssociationConnector Association="FoodStockDBModel.FK_OrderItem_Product" />
+        <AssociationConnector Association="FoodStockDBModel.FK_Product_ProductCategory" />
+        <AssociationConnector Association="FoodStockDBModel.FK_Product_ProductCreatedUser" />
+        <AssociationConnector Association="FoodStockDBModel.FK_Product_ProductLastUpdatedUser" />
+        <AssociationConnector Association="FoodStockDBModel.FK_ProductCategory_CreatedUser" />
+        <AssociationConnector Association="FoodStockDBModel.FK_ProductCategory_LastUpdatedUser" />
+        <AssociationConnector Association="FoodStockDBModel.FK_RoleFunctions_Roles" />
+        <AssociationConnector Association="FoodStockDBModel.FK_Users_Roles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
