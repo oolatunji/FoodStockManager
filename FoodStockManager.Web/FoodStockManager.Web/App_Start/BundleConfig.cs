@@ -28,7 +28,7 @@ namespace FoodStockManager.Web
                       "~/Scripts/vfs_fonts.js",
                       "~/Scripts/buttons.html5.min.js",
                       "~/Scripts/jquery.knob.js",
-                      "~/Scripts/jquery.bootstrap.wizard.min.js",
+                      "~/Scripts/jquery.bootstrap.wizard.js",
                       "~/Scripts/owl.carousel.min.js",
                       "~/Scripts/d3.min.js",
                       "~/Scripts/parsley.js",
@@ -139,6 +139,10 @@ namespace FoodStockManager.Web
                       "~/Scripts/Product/ViewProduct.js"
                       ));
 
+            bundles.Add(new ScriptBundle("~/bundles/requestorder").Include(
+                      "~/Scripts/Order/RequestOrder.js"
+                      ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
                       "~/Content/font-awesome.min.css",
@@ -152,6 +156,7 @@ namespace FoodStockManager.Web
                       "~/Content/clndr.css",
                       "~/Content/toastr.min.css",
                       "~/Content/style.css",
+                      "~/Content/form-wizard.css",
                       "~/Content/parsley.css",
                       "~/Content/Wobblebar.css"));
 

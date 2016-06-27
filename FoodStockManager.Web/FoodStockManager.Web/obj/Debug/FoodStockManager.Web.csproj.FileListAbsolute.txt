@@ -1,4 +1,3 @@
-C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockManager.Web\obj\Debug\FoodStockManager.Web.csprojResolveAssemblyReference.cache
 C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockManager.Web\bin\FoodStockManager.Web.dll.config
 C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockManager.Web\bin\FoodStockManager.Web.dll
 C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockManager.Web\bin\FoodStockManager.Web.pdb
@@ -37,5 +36,6 @@ C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodS
 C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockManager.Web\bin\System.Web.WebPages.Deployment.xml
 C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockManager.Web\bin\System.Web.WebPages.Razor.xml
 C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockManager.Web\bin\Antlr3.Runtime.pdb
+C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockManager.Web\obj\Debug\FoodStockManager.Web.csprojResolveAssemblyReference.cache
 C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockManager.Web\obj\Debug\FoodStockManager.Web.dll
 C:\Users\OLATUNJI\Documents\projects\FoodStockManager\FoodStockManager.Web\FoodStockManager.Web\obj\Debug\FoodStockManager.Web.pdb

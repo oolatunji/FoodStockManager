@@ -65,7 +65,7 @@ function updateProduct() {
             $('#updateBtn').html('<i class="fa fa-spinner fa-spin"></i>');
             $("#updateBtn").attr("disabled", "disabled");
 
-            var productName = $('#productName').val();
+            var productName = $('#productName').val().toUpperCase();
             var productQuantity = $('#productQuantity').val();
             var productCategory = $('#productCategory').val();
 

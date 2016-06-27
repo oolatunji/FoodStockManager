@@ -60,7 +60,7 @@ function addProduct() {
             $('#addBtn').html('<i class="fa fa-spinner fa-spin"></i>');
             $("#addBtn").attr("disabled", "disabled");
 
-            var productName = $('#productName').val();
+            var productName = $('#productName').val().toUpperCase();
             var productQuantity = $('#productQuantity').val();
             var productCategory = $('#productCategory').val();
             

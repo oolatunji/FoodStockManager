@@ -15,6 +15,22 @@ tr.shown td.edit-control {
     background: url('../images/edit_control.png') no-repeat center center;
 }
 
+td.addtocart-control {
+    background: url('../images/addtocart.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.addtocart-control {
+    background: url('../images/addtocart.png') no-repeat center center;
+}
+
+td.delete-control {
+    background: url('../images/delete.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.delete-control {
+    background: url('../images/delete.png') no-repeat center center;
+}
+
 tfoot input {
         width: 100%;
         padding: 3px;

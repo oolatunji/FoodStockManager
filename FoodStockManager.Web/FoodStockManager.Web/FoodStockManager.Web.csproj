@@ -197,14 +197,19 @@
     <Content Include="Content\dataTables.tableTools.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\form-wizard.css" />
     <Content Include="Content\ionicons.css" />
     <Content Include="Content\ionicons.min.css" />
     <Content Include="Content\jquery.dataTables.css" />
     <Content Include="Content\jquery.dataTables.min.css" />
+    <Content Include="Content\jquery.idealforms.css" />
+    <Content Include="Content\jquerysctipttop.css" />
+    <Content Include="Content\normalize.css" />
     <Content Include="Content\owl.carousel.css" />
     <Content Include="Content\owl.theme.css" />
     <Content Include="Content\owl.transitions.css" />
     <Content Include="Content\parsley.css" />
+    <Content Include="Content\prettify.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
@@ -216,6 +221,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\ionicons.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\addtocart.png" />
     <Content Include="images\back_disabled.png" />
     <Content Include="images\back_enabled.png" />
     <Content Include="images\back_enabled_hover.png" />
@@ -291,6 +297,7 @@
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.bootstrap.wizard.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.idealforms.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.knob.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
@@ -303,6 +310,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\nav.js" />
+    <Content Include="Scripts\Order\RequestOrder.js" />
     <Content Include="Scripts\owl.carousel.js" />
     <Content Include="Scripts\owl.carousel.min.js" />
     <Content Include="Scripts\pace.min.js" />
@@ -312,6 +320,7 @@
     <Content Include="Scripts\Password\PasswordReset.js" />
     <Content Include="Scripts\pdfmake.min.js" />
     <Content Include="Scripts\placeholders.min.js" />
+    <Content Include="Scripts\prettify.js" />
     <Content Include="Scripts\ProductCategory\AddProductCategory.js" />
     <Content Include="Scripts\ProductCategory\UpdateProductCategory.js" />
     <Content Include="Scripts\ProductCategory\ViewProductCategory.js" />
