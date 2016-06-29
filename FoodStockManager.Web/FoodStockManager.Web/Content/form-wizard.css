@@ -4,9 +4,9 @@
 	background: #fff }
 	.bwizard-steps .active {
 		color: #fff;
-		background: #00b33c }
+		background: purple }
 	.bwizard-steps .active:after {
-		border-left-color: #00b33c }
+		border-left-color: purple }
 	.bwizard-steps .active a {
 		color: #fff;
 		cursor: default }

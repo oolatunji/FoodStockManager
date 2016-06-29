@@ -99,19 +99,17 @@ function initializeSelectedOrder() {
 
         data: dataSet,
 
-        "columnDefs": [
-            {
-                "render": function ( data, type, row ) {
-                    return '<input type="number" class="form-control" onkeypress="return event.charCode >= 48 && event.charCode <= 57" onchange="updateDatasource(this)" value = "' + data + '"/>';
-                },
-                "targets": 3
-            },
-            ],
         "columns": [
             { "title": "Category" },
             { "title": "Name" },
             { "title": "Available Quantity" },
             { "title": "Requested Quantity" },
+            {
+                "className": 'edit-control',
+                "orderable": false,
+                "title": '',
+                "defaultContent": ''
+            },
             {
                 "className": 'delete-control',
                 "orderable": false,
@@ -126,11 +124,72 @@ function initializeSelectedOrder() {
         "order": [[0, "asc"]],
     });
 
+    $('#selectedorder tbody').on('click', 'td.edit-control', function () {
+        var tr = $(this).closest('tr');
+        var row = dt.row(tr);
+        var data = row.data();
+
+        var availableQty = data[2];
+        var requiredQty = data[3];
+        var id = data[6];
+
+        var userRequiredQty = prompt("Please enter your required quantity. Available quantity is: " + availableQty, requiredQty);
+        if (userRequiredQty != null) {
+            if (!isNaN(userRequiredQty)) {
+                if (availableQty >= userRequiredQty) {
+                    var productexist = false;
+                    //loop through the product datasource
+                    for (var i = 0, l = products.length; i < l; i++) {
+                        var existingProductID = products[i][6];
+                        //check if the product to be added exist.
+                        if (existingProductID === id) {
+                            //if the product exist, increment the required quantity and check that it is not more than the product available quantity.
+                            products[i][3] = parseInt(userRequiredQty);
+                            //clear the current table
+                            var table = $('#selectedorder').DataTable();
+                            table.clear().draw();
+                            //loop through the product datasource and update the product table
+                            for (var i = 0, l = products.length; i < l; i++) {
+                                dt.row.add([products[i][0], products[i][1], products[i][2], products[i][3], '', '', products[i][6]]).draw();
+                            }
+
+                            displayMessage("success", "Order required quantity updated successfully", "Order Management");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
     $('#selectedorder tbody').on('click', 'td.delete-control', function () {
         var tr = $(this).closest('tr');
         var row = dt.row(tr);
         var data = row.data();
-        console.log(data);
+        
+        var deleteorder = confirm("Are you sure you want to delete order: " + data[1] + "?");
+        if (deleteorder) {
+            var id = data[6];
+            for (var i = 0, l = products.length; i < l; i++) {
+                var existingProductID = products[i][6];
+                //check if the product to be added exist.
+                if (existingProductID === id) {
+                    products.splice(i, 1);
+
+                    var table = $('#selectedorder').DataTable();
+                    table.clear().draw();
+                    //loop through the product datasource and update the product table
+                    for (var i = 0, l = products.length; i < l; i++) {
+                        dt.row.add([products[i][0], products[i][1], products[i][2], products[i][3], '', '', products[i][6]]).draw();
+                    }
+
+                    displayMessage("success", "Order deleted successfully", "Order Management");
+                    break;
+                }
+            }
+        } else {
+            return;
+        }
     });
 
     $("#selectedorder tfoot input").on('keyup change', function () {
@@ -141,10 +200,6 @@ function initializeSelectedOrder() {
     });
 }
 
-function updateDatasource(product) {
-    console.log(product);
-}
-
 function addProductToBasket(product) {
 
     $("#shoppingBasket").removeClass('defaultBasket');
@@ -153,14 +208,16 @@ function addProductToBasket(product) {
     //check if the product datasource is empty
     if (products.length == 0) {
         //if empty, push product to the datasource.
-        products.push([product.ProductCategoryName, product.Name, product.Level, 1, '', product.ID]);
+        products.push([product.ProductCategoryName, product.Name, product.Level, 1, '', '', product.ID]);
         //add the product to the datatable
-        dt.row.add([product.ProductCategoryName, product.Name, product.Level, 1, '', product.ID]).draw();
+        dt.row.add([product.ProductCategoryName, product.Name, product.Level, 1, '', '', product.ID]).draw();
+
+        displayMessage("success", "Order added to the basket successfully", "Order Management");
     } else {
         var productexist = false;
         //loop through the product datasource
         for (var i = 0, l = products.length; i < l; i++) {
-            var existingProductID = products[i][5];
+            var existingProductID = products[i][6];
             //check if the product to be added exist.
             if (existingProductID === product.ID) {
                 //if the product exist, increment the required quantity and check that it is not more than the product available quantity.
@@ -176,50 +233,28 @@ function addProductToBasket(product) {
                 break;
             }
         }
-
         if (productexist) {
             //clear the current table
             var table = $('#selectedorder').DataTable();
             table.clear().draw();
-
             //loop through the product datasource and update the product table
             for (var i = 0, l = products.length; i < l; i++) {
-                dt.row.add([products[i][0], products[i][1], products[i][2], products[i][3], '', products[i][5]]).draw();
+                dt.row.add([products[i][0], products[i][1], products[i][2], products[i][3], '', '', products[i][6]]).draw();
             }
         } else {
-            products.push([product.ProductCategoryName, product.Name, product.Level, 1, '', product.ID]);
+            products.push([product.ProductCategoryName, product.Name, product.Level, 1, '', '', product.ID]);
             //add the product to the datatable
-            dt.row.add([product.ProductCategoryName, product.Name, product.Level, 1, '', product.ID]).draw();
+            dt.row.add([product.ProductCategoryName, product.Name, product.Level, 1, '', '', product.ID]).draw();
         }
+
+        displayMessage("success", "Order added to the basket successfully", "Order Management");
     }
-    window.setTimeout(restoreBasketIcon, 300);
+    window.setTimeout(restoreBasketIcon, 400);
 }
 
 function restoreBasketIcon() {
     $("#shoppingBasket").removeClass('activeBasket');
     $("#shoppingBasket").addClass('defaultBasket');
-}
-
-function updateRow() {
-    var d = dt.row(this).data();
-
-    d.counter++;
-
-    dt
-        .row(this)
-        .data(d)
-        .draw();
-}
-
-function refreshResult() {
-    try {
-        var ctr = 0;
-        ctr++;
-        dt.row.add([ctr, ctr, ctr, ctr, ctr]).draw();
-        console.log(dt.data());
-    } catch (err) {
-        displayMessage("error", "Error encountered: " + err, "Order Management");
-    }
 }
 
 $(document).ready(function () {
