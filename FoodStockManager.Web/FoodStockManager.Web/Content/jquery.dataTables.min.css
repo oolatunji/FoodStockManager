@@ -16,19 +16,19 @@ tr.shown td.edit-control {
 }
 
 td.addtocart-control {
-    background: url('../images/addtocart.png') no-repeat center center;
+    background: url('../images/add_to_cart.png') no-repeat center center;
     cursor: pointer;
 }
 tr.shown td.addtocart-control {
-    background: url('../images/addtocart.png') no-repeat center center;
+    background: url('../images/add_to_cart.png') no-repeat center center;
 }
 
 td.delete-control {
-    background: url('../images/delete.png') no-repeat center center;
+    background: url('../images/delete_cart.png') no-repeat center center;
     cursor: pointer;
 }
 tr.shown td.delete-control {
-    background: url('../images/delete.png') no-repeat center center;
+    background: url('../images/delete_cart.png') no-repeat center center;
 }
 
 tfoot input {

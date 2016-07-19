@@ -221,11 +221,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\ionicons.svg" />
     <Content Include="Global.asax" />
-    <Content Include="images\addtocart.png" />
+    <Content Include="images\add_to_cart.png" />
     <Content Include="images\back_disabled.png" />
     <Content Include="images\back_enabled.png" />
     <Content Include="images\back_enabled_hover.png" />
     <Content Include="images\copy_csv_xls_pdf.swf" />
+    <Content Include="images\delete_cart.png" />
     <Content Include="images\details_close.png" />
     <Content Include="images\details_open.png" />
     <Content Include="images\edit_control.png" />

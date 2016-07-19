@@ -20,6 +20,7 @@ $(document).ready(function () {
             $('#rootwizard').bootstrapWizard({ 'tabClass': 'bwizard-steps' });
             getProduct();
             initializeSelectedOrder();
+            initializeCheckout();
             products = [];
         }
     } catch (err) {
@@ -83,7 +84,6 @@ function getProduct() {
 }
 
 var dt;
-
 function initializeSelectedOrder() {
     var dataSet = [];
     
@@ -117,7 +117,8 @@ function initializeSelectedOrder() {
                 "defaultContent": ''
             },
             {
-                "title": "ID"
+                "title": "ID",
+                "visible": false
             }
         ],
 
@@ -152,7 +153,7 @@ function initializeSelectedOrder() {
                             for (var i = 0, l = products.length; i < l; i++) {
                                 dt.row.add([products[i][0], products[i][1], products[i][2], products[i][3], '', '', products[i][6]]).draw();
                             }
-
+                            checkoutOrder();
                             displayMessage("success", "Order required quantity updated successfully", "Order Management");
                             break;
                         }
@@ -182,7 +183,7 @@ function initializeSelectedOrder() {
                     for (var i = 0, l = products.length; i < l; i++) {
                         dt.row.add([products[i][0], products[i][1], products[i][2], products[i][3], '', '', products[i][6]]).draw();
                     }
-
+                    checkoutOrder();
                     displayMessage("success", "Order deleted successfully", "Order Management");
                     break;
                 }
@@ -201,60 +202,178 @@ function initializeSelectedOrder() {
 }
 
 function addProductToBasket(product) {
+    try{
+        $("#shoppingBasket").removeClass('defaultBasket');
+        $("#shoppingBasket").addClass('activeBasket');
 
-    $("#shoppingBasket").removeClass('defaultBasket');
-    $("#shoppingBasket").addClass('activeBasket');
-
-    //check if the product datasource is empty
-    if (products.length == 0) {
-        //if empty, push product to the datasource.
-        products.push([product.ProductCategoryName, product.Name, product.Level, 1, '', '', product.ID]);
-        //add the product to the datatable
-        dt.row.add([product.ProductCategoryName, product.Name, product.Level, 1, '', '', product.ID]).draw();
-
-        displayMessage("success", "Order added to the basket successfully", "Order Management");
-    } else {
-        var productexist = false;
-        //loop through the product datasource
-        for (var i = 0, l = products.length; i < l; i++) {
-            var existingProductID = products[i][6];
-            //check if the product to be added exist.
-            if (existingProductID === product.ID) {
-                //if the product exist, increment the required quantity and check that it is not more than the product available quantity.
-                var existingProductRequiredLevel = products[i][3];
-                existingProductRequiredLevel = products[i][3] + 1;
-
-                var existingProductAvailableLevel = products[i][2];
-
-                if (existingProductAvailableLevel >= existingProductRequiredLevel) {
-                    products[i][3] = (products[i][3] + 1);
-                }
-                productexist = true;
-                break;
-            }
-        }
-        if (productexist) {
-            //clear the current table
-            var table = $('#selectedorder').DataTable();
-            table.clear().draw();
-            //loop through the product datasource and update the product table
-            for (var i = 0, l = products.length; i < l; i++) {
-                dt.row.add([products[i][0], products[i][1], products[i][2], products[i][3], '', '', products[i][6]]).draw();
-            }
-        } else {
+        //check if the product datasource is empty
+        if (products.length == 0) {
+            //if empty, push product to the datasource.
             products.push([product.ProductCategoryName, product.Name, product.Level, 1, '', '', product.ID]);
             //add the product to the datatable
             dt.row.add([product.ProductCategoryName, product.Name, product.Level, 1, '', '', product.ID]).draw();
-        }
+        } else {
+            var productexist = false;
+            //loop through the product datasource
+            for (var i = 0, l = products.length; i < l; i++) {
+                var existingProductID = products[i][6];
+                //check if the product to be added exist.
+                if (existingProductID === product.ID) {
+                    //if the product exist, increment the required quantity and check that it is not more than the product available quantity.
+                    var existingProductRequiredLevel = products[i][3];
+                    existingProductRequiredLevel = products[i][3] + 1;
 
-        displayMessage("success", "Order added to the basket successfully", "Order Management");
+                    var existingProductAvailableLevel = products[i][2];
+
+                    if (existingProductAvailableLevel >= existingProductRequiredLevel) {
+                        products[i][3] = (products[i][3] + 1);
+                    }
+                    productexist = true;
+                    break;
+                }
+            }
+            if (productexist) {
+                //clear the current table
+                var table = $('#selectedorder').DataTable();
+                table.clear().draw();
+                //loop through the product datasource and update the product table
+                for (var i = 0, l = products.length; i < l; i++) {
+                    dt.row.add([products[i][0], products[i][1], products[i][2], products[i][3], '', '', products[i][6]]).draw();
+                }
+            } else {
+                products.push([product.ProductCategoryName, product.Name, product.Level, 1, '', '', product.ID]);
+                //add the product to the datatable
+                dt.row.add([product.ProductCategoryName, product.Name, product.Level, 1, '', '', product.ID]).draw();
+            }
+        }
+        window.setTimeout(restoreBasketIcon, 400);
+        checkoutOrder();
+    } catch (e) {
+        displayMessage("error", "Error encountered: " + e, "Order Management");
     }
-    window.setTimeout(restoreBasketIcon, 400);
+}
+
+var datatable;
+function initializeCheckout() {
+    var dataSet = [];
+
+    $('#order tfoot th').each(function () {
+        var title = $('#order thead th').eq($(this).index()).text();
+        if (title != "")
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+    });
+
+    datatable = $('#order').DataTable({
+
+        "processing": true,
+
+        data: dataSet,
+
+        "columns": [
+            { "title": "Name" },
+            { "title": "Requested Quantity" },
+            {
+                "title": "ID",
+                "visible": false
+            }
+        ],
+
+        "order": [[0, "asc"]],
+    });
+
+    $("#order tfoot input").on('keyup change', function () {
+        table
+            .column($(this).parent().index() + ':visible')
+            .search(this.value)
+            .draw();
+    });
+}
+
+function checkoutOrder() {
+    try {
+        //clear the current table
+        var table = $('#order').DataTable();
+        table.clear().draw();
+        //loop through the product datasource and update the product table
+        for (var i = 0, l = products.length; i < l; i++) {
+            datatable.row.add([products[i][1], products[i][3], products[i][6]]).draw();
+        }
+    } catch (e) {
+        displayMessage("error", "Error encountered: " + e, "Order Management");
+    }
+}
+
+function confirmOrder() {
+    try{
+        if (products.length == 0) {
+            displayMessage("warning", "No orders to confirm", "Order Management");
+        } else {
+            $('#addBtn').html('<i class="fa fa-spinner fa-spin"></i>');
+            $("#addBtn").attr("disabled", "disabled");
+
+            var orderItems = [];
+            var totalQty = 0;
+            for (var i = 0, l = products.length; i < l; i++) {
+                var productID = products[i][6];
+                var productQty = products[i][3];
+                
+                var orderItem = { ProductId: productID, QuantityRequested: productQty };
+                orderItems.push(orderItem);
+
+                totalQty = totalQty + productQty;
+            }
+
+            var user = JSON.parse(window.sessionStorage.getItem("loggedInUser"));
+            var orderBranch = user.Branch.ID;
+            var orderedBy = user.ID;
+
+            var data = { TotalQuantityRequested: totalQty, OrderBranch: orderBranch, OrderedBy: orderedBy, OrderItems: orderItems };
+            $.ajax({
+                url: settingsManager.websiteURL + 'api/OrderAPI/SaveOrder',
+                type: 'POST',
+                data: data,
+                processData: true,
+                async: true,
+                cache: false,
+                success: function (response) {
+                    displayMessage("success", response, "Functions Management");
+
+                    products = [];
+                    var selectedorderdt = $('#selectedorder').DataTable();
+                    selectedorderdt.clear().draw();
+
+                    var orderdt = $('#order').DataTable();
+                    orderdt.clear().draw();
+
+                    $("#addBtn").removeAttr("disabled");
+                    $('#addBtn').html('Confirm Order');
+                },
+                error: function (xhr) {
+                    displayMessage("error", 'Error experienced: ' + xhr.responseText, "Functions Management");
+                    $("#addBtn").removeAttr("disabled");
+                    $('#addBtn').html('Confirm Order');
+                }
+            });
+        }
+    } catch (e) {
+        displayMessage("error", "Error encountered: " + e, "Order Management");
+        $("#addBtn").removeAttr("disabled");
+        $('#addBtn').html('Check out your order');
+    }
 }
 
 function restoreBasketIcon() {
     $("#shoppingBasket").removeClass('activeBasket');
     $("#shoppingBasket").addClass('defaultBasket');
+}
+
+function refreshResult() {
+    try {
+        var table = $('#product').DataTable();
+        table.ajax.reload();
+    } catch (err) {
+        displayMessage("error", "Error encountered: " + err, "Order Management");
+    }
 }
 
 $(document).ready(function () {

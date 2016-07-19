@@ -140,6 +140,7 @@ namespace FoodStockLibrary
                 using (var context = new FoodStockDBEntities())
                 {
                     var users = context.Users
+                                        .Include("Branch")
                                         .Include("Role.RoleFunctions.Function")
                                         .Where(f => f.Username == username && f.HashedPassword == hashedPassword);
 

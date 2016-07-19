@@ -23,5 +23,18 @@ namespace FoodStockLibrary
             Active,
             InActive,
         }
+
+        public static string GenerateOrderNumber()
+        {
+            var orderNumber = string.Empty;
+
+            var today = System.DateTime.Now;
+            var random = new Random();
+            var rand = random.Next(1, 100);
+
+            orderNumber = string.Format("TAF{0}{1}", rand.ToString().PadRight(3, '0'), String.Format("{0:dMyyyyHHmmss}", today));
+
+            return orderNumber;
+        }
     }
 }
